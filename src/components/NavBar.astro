@@ -1,0 +1,46 @@
+---
+import SpanIcon from "../icons/Span.astro";
+import Logo from "../icons/Logo.astro";
+import Connect from "../icons/Connect.astro";
+import Search from "../icons/Search.astro";
+---
+
+
+
+<nav
+    class="flex flex-row flex-1 gap-2 bg-[#030303] border-b-[1px] border-zinc-800 w-auto text-[#828282]"
+>
+    <div class="flex w-[240px] justify-between py-5 pr-16 pl-6">
+        <SpanIcon />
+        <Logo />
+    </div>
+    <div class="flex flex-row mx-28 pl-4 place-content-between w-full">
+        <div
+            id="change"
+            class="border-[1px] border-zinc-600 rounded-lg h-10 self-center w-[480px] flex flex-row"
+        >
+            <div class="self-center px-4">
+                <Search />
+            </div>
+            <div class="w-full flex">
+                <input
+                    id="search"
+                    class=" w-5/6 outline-none bg-inherit  placeholder:text-[#828282] font-semibold antialiased"
+                    type="text"
+                    placeholder="Buscar canciones, álbunes, artistas o podcasts"
+                />
+            </div>
+        </div>
+        <div class="flex-row flex gap-6 py-5">
+            <Connect />
+            <div class="w-6 h-6 bg-white rounded-full"></div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    #change{
+        background-color:#292929;
+    }
+
+</style>

@@ -1,0 +1,61 @@
+---
+import AsideMenu from '../components/AsideMenu.astro'
+import NavBar from '../components/NavBar.astro'
+import '@fontsource/roboto';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="text-white">
+		<div id="bg" class="bg-local bg-cover bg-center bg-no-repeat absolute w-full h-[450px]" style="background-image: url(bg.jpg);"></div>
+		<div id="app" class="relative h-screen items-stretch">
+			<div class="[grid-area:nav] min-h-12">
+				<NavBar/>
+			</div>
+			<aside class="[grid-area:aside] flex-col flex overflow-y-auto">
+				<AsideMenu/>
+			</aside>
+			<main class="[grid-area:main]  overflow-y-auto">
+				MAIN
+			</main>
+			<footer class="[grid-area:player] min-h-12" >
+				
+			</footer>
+		</div>
+		<slot />
+	</body>
+</html>
+<style>
+	#app {
+		display: grid;
+		grid-template-areas: 
+			"nav nav nav"
+			"aside main main"
+			"player player player";
+		grid-template-columns: 240px 1fr;
+		grid-template-rows: auto 1fr auto;
+		background-image: linear-gradient(to bottom,rgba(0,0,0,.6),rgb(0, 0, 0))
+	}
+
+</style>
+<style is:global>
+	html {
+		font-family: 'Roboto', system-ui, sans-serif;
+		background: #030303;
+	}
+
+</style>
