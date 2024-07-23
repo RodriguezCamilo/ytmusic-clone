@@ -1,8 +1,32 @@
 ---
+import MainButtonItem from "../components/MainButtonItem.astro";
 import Layout from '../layouts/Layout.astro';
+import { playlists } from "../lib/data";
+import PlayListItemCard from "../components/PlayListItemCard.astro"
 ---
 
 <Layout title="YTMusic Clone">
+
+
+<div class="bg-transparent flex flex-col gap-10">
+    <ul class="flex flex-row gap-4 mt-14">
+        <MainButtonItem href="/">Romance</MainButtonItem>
+        <MainButtonItem>Fiesta</MainButtonItem>
+        <MainButtonItem>Triste</MainButtonItem>
+        <MainButtonItem>Romance</MainButtonItem>
+    </ul>
+    <div class="flex flex-col gap-3">
+        <h2 class="text-zinc-400 ">INICIA LA RADIO A PARTIR DE UNA CANCIÓN</h2>
+        <h2 class="font-bold text-5xl">Selección rápida</h1>
+    </div>
+    <div class="flex flex-col gap-3">
+        <h2 class="font-bold text-5xl"> De tu biblioteca</h1>
+    </div>
+   
+    {
+        playlists.map(playlist=> <PlayListItemCard playlist={playlist}/>)
+    }
+</div>
 
 </Layout>
 

@@ -1,7 +1,8 @@
 ---
-import AsideMenu from '../components/AsideMenu.astro'
-import NavBar from '../components/NavBar.astro'
-import '@fontsource/roboto';
+import AsideMenu from "../components/AsideMenu.astro";
+import NavBar from "../components/NavBar.astro";
+import "@fontsource/roboto";
+import "@fontsource-variable/noto-sans";
 
 interface Props {
 	title: string;
@@ -21,20 +22,23 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body class="text-white">
-		<div id="bg" class="bg-local bg-cover bg-center bg-no-repeat absolute w-full h-[450px]" style="background-image: url(bg.jpg);"></div>
-		<div id="app" class="relative h-screen items-stretch">
+		<div
+			id="bg"
+			class="bg-local bg-cover bg-center bg-no-repeat absolute w-full h-[450px]"
+			style="background-image: url(bg.jpg);"
+		>
+		</div>
+		<div id="app" class="relative h-screen items-stretch gap-x-24">
 			<div class="[grid-area:nav] min-h-12">
-				<NavBar/>
+				<NavBar />
 			</div>
 			<aside class="[grid-area:aside] flex-col flex overflow-y-auto">
-				<AsideMenu/>
+				<AsideMenu />
 			</aside>
-			<main class="[grid-area:main]  overflow-y-auto">
-				MAIN
+			<main class="[grid-area:main] overflow-y-auto">
+				<slot/>
 			</main>
-			<footer class="[grid-area:player] min-h-12" >
-				
-			</footer>
+			<footer class="[grid-area:player] min-h-12"></footer>
 		</div>
 		<slot />
 	</body>
@@ -42,20 +46,25 @@ const { title } = Astro.props;
 <style>
 	#app {
 		display: grid;
-		grid-template-areas: 
+		grid-template-areas:
 			"nav nav nav"
 			"aside main main"
 			"player player player";
 		grid-template-columns: 240px 1fr;
 		grid-template-rows: auto 1fr auto;
-		background-image: linear-gradient(to bottom,rgba(0,0,0,.6),rgb(0, 0, 0))
+		background-image: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.651),
+			rgb(0, 0, 0)
+		);
 	}
-
 </style>
 <style is:global>
+	h1 {
+		font-family: "Noto Sans Variable", "Roboto", system-ui, sans-serif;
+	}
 	html {
-		font-family: 'Roboto', system-ui, sans-serif;
+		font-family: "Roboto", system-ui, sans-serif;
 		background: #030303;
 	}
-
 </style>

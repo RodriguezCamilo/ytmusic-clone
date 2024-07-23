@@ -1,0 +1,35 @@
+---
+import BiblioIcon from "../icons/Biblio.astro";
+import ExplorerIcon from "../icons/Explorer.astro";
+import HomeIcon from "../icons/Home.astro";
+import SideMenuItem from "./SideMenuItem.astro";
+import SidePlaylist from "./SidePlaylist.astro";
+import { playlists } from "../lib/data";
+---
+
+<div
+    class="bg-[#030303] border-r-[1px] border-zinc-800 flex flex-col flex-1 gap-y-4"
+>
+    <div class="m-2">
+        <ul>
+            <SideMenuItem href="/">
+                <HomeIcon />
+                Principal
+            </SideMenuItem>
+            <SideMenuItem href="/">
+                <ExplorerIcon />
+                Explorar
+            </SideMenuItem>
+            <SideMenuItem href="/">
+                <BiblioIcon />
+                Biblioteca
+            </SideMenuItem>
+        </ul>
+    </div>
+    <div class="h-[1px] bg-zinc-800 mx-6"></div>
+    <div class="flex flex-col">
+        <ul>
+            {playlists.map((playlist) => <SidePlaylist playlist={playlist} />)}
+        </ul>
+    </div>
+</div>
