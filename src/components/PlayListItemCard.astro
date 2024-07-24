@@ -1,27 +1,50 @@
 ---
-import type {Playlist} from "../lib/data"
-import PlayIcon from "../icons/Playlist.astro"
+import type { Playlist } from "../lib/data";
+import PlayIcon from "../icons/Playlist.astro";
 
 interface Props {
     playlist?: Playlist;
 }
 
-const {playlist} = Astro.props
-const { id, title, artists } = playlist || { id: '', title: '', artists: [] };
+const { playlist } = Astro.props;
+const { id, title, artists, cover } = playlist || {
+    id: "",
+    title: "",
+    artists: [],
+    cover: "",
+};
 
-const artistsString = artists.join(", ")
+const artistsString = artists.join(", ");
 ---
 
-<li>
-    <a href={`/playlist/${id}`} class="group flex flex-row justify-between bg-[#030303]  hover:bg-zinc-800 rounded-md py-3 px-5">
-        <div class="flex-col truncate">
-            <h4 class="font-semibold text-sm">{title}</h4>
-            <p class="text-xs text-zinc-200">{artistsString}</p>
-        </div>
-        <div class="rounded-full self-center bg-white h-6 w-6 flex items-center place-content-center opacity-0 group-hover:opacity-100">
-            <div class="h-4 w-4 flex items-center">
-                <PlayIcon/>
+<div class="w-52 transition-all">
+    <a
+        href={`/playlist/${id}`}
+        class="group justify-between relative overflow-hidden bg-[#030303]rounded-md block mb-3"
+        transition:name=`playlist ${id} box`
+    >
+        <picture class="aspect-w-1 aspect-h-1">
+            <img
+                class="rounded-md object-cover w-full h-full"
+                src={cover}
+                alt={`Portada de ${title} por ${artistsString}`}
+                transition:name=`playlist ${id} image`
+            />
+        </picture>
+        <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity rounded-md"></div>
+        <div
+            class="rounded-full self-center absolute bg-black/50 h-8 w-8 flex items-center place-content-center opacity-0 group-hover:opacity-100 bottom-4 right-4"
+            transition:name=`playlist ${id} playicon`
+        >
+            <div class="h-4 w-4 flex items-center fill-white">
+                <PlayIcon />
             </div>
         </div>
     </a>
-</li>
+    <div class="flex-col truncate">
+        <a href={`/playlist/${id}`} class="hover:underline">
+            <h4 class="font-semibold text-md" transition:name=`playlist ${id} title`>{title}</h4>
+        </a>
+        <p class="text-sm text-zinc-200">{artistsString}</p>
+    </div>
+</div>
