@@ -1,6 +1,6 @@
 ---
 import type { Playlist } from "../lib/data";
-import PlayIcon from "../icons/Playlist.astro";
+import { CardPlayButton } from "./CardPlayButton.jsx";
 
 interface Props {
     playlist?: Playlist;
@@ -17,13 +17,19 @@ const { id, title, artists, cover } = playlist || {
 const artistsString = artists.join(", ");
 ---
 
-<div class="w-52 transition-all">
+<article class="w-52 group transition-all relative">
+    <div
+        class="rounded-full self-center absolute bg-black/50 h-10 w-10 flex items-center place-content-center opacity-0 group-hover:opacity-100 z-50 bottom-16 right-4"
+        transition:name=`playlist ${id} playicon`
+    >
+        <CardPlayButton id={id} client:visible />
+    </div>
     <a
         href={`/playlist/${id}`}
-        class="group justify-between relative overflow-hidden bg-[#030303]rounded-md block mb-3"
+        class="justify-between overflow-hidden bg-[#030303]rounded-md block mb-3"
         transition:name=`playlist ${id} box`
     >
-        <picture class="aspect-w-1 aspect-h-1">
+        <picture class="group-hover:opacity-50 aspect-w-1 aspect-h-1">
             <img
                 class="rounded-md object-cover w-full h-full"
                 src={cover}
@@ -31,20 +37,16 @@ const artistsString = artists.join(", ");
                 transition:name=`playlist ${id} image`
             />
         </picture>
-        <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity rounded-md"></div>
-        <div
-            class="rounded-full self-center absolute bg-black/50 h-8 w-8 flex items-center place-content-center opacity-0 group-hover:opacity-100 bottom-4 right-4"
-            transition:name=`playlist ${id} playicon`
-        >
-            <div class="h-4 w-4 flex items-center fill-white">
-                <PlayIcon />
-            </div>
-        </div>
     </a>
     <div class="flex-col truncate">
         <a href={`/playlist/${id}`} class="hover:underline">
-            <h4 class="font-semibold text-md" transition:name=`playlist ${id} title`>{title}</h4>
+            <h4
+                class="font-semibold text-md"
+                transition:name=`playlist ${id} title`
+            >
+                {title}
+            </h4>
         </a>
         <p class="text-sm text-zinc-200">{artistsString}</p>
     </div>
-</div>
+</article>

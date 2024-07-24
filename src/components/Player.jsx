@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react"
+import { userPlayerStore } from "../store/playerStore"
 
-export const PlayIcon = ({ className }) => (
+export const PlayIcon = () => (
     <svg viewBox="0 0 24 24"
         fill="white"
         focusable="false"
     ><path d="M6,4l12,8L6,20V4z"></path></svg>
 )
 
-export const PauseIcon = ({ className }) => (
+export const PauseIcon = () => (
     <svg viewBox="0 0 24 24"
         fill="white"
         focusable="false"
@@ -15,24 +16,35 @@ export const PauseIcon = ({ className }) => (
 
 )
 
+const CurrentSong = ({image, title}) => {
+    return (
+        
+    )
+}
+
 export function Player() {
 
-    const [isPlaying, setIsPlaying] = useState(false)
-    const [currentSong, setCurrentSong] = useState(null)
+    const {currentMusic, isPlaying, setIsPlaying} = userPlayerStore(state => state)
     const audioRef = useRef()
 
+
     useEffect(()=>{
-        audioRef.current.src = `music/1/01.mp3`
-    },[])
+        isPlaying
+            ? audioRef.current.play()
+            : audioRef.current.pause()
+    },[isPlaying])
+
+    useEffect(()=>{
+        const {song, playlist, songs} = currentMusic
+        if (song){
+            const src = `/music/${playlist.id}/0${song.id}.mp3`
+            audioRef.current.src = src
+            audioRef.current.play()
+        }
+
+    },[currentMusic])
 
     const handleClick = () => {
-        if(isPlaying){
-            audioRef.current.pause()
-        }
-        else {
-            audioRef.current.play()
-            audioRef.current.volume = 0.1
-        }
         setIsPlaying(!isPlaying)
     }
 
