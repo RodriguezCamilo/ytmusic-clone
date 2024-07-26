@@ -25,7 +25,7 @@ import PlayListItemCard from "../components/PlayListItemCard.astro";
         <div class="flex flex-col gap-3">
             <h2 id="Noto" class="font-bold text-5xl">De tu biblioteca</h2>
         </div>
-        <div class="flex flex-row flex-1 gap-6">
+        <div class="flex flex-row flex-wrap flex-1 gap-6">
             {
                 playlists.map((playlist) => (
                     <PlayListItemCard playlist={playlist} />

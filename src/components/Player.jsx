@@ -74,7 +74,6 @@ const SongControl = ({ audio }) => {
     }
 
     return (
-        <div>
             <Slider
                 defaultValue={[0]}
                 max={audio?.current?.duration ?? 0}
@@ -83,12 +82,12 @@ const SongControl = ({ audio }) => {
                 trackClassName="bg-white/30"
                 rangeClassName="bg-[#f00000]"
                 thumbClassName="bg-[#f00000] border-[#f00000]/20"
-                className="w-full"
+                heightClassName="h-[2px] hover:h-1"
+                className="w-full h-1"
                 onValueChange={(value) => {
                     audio.current.currentTime = value
                 }}
             />
-        </div>
     )
 }
 
@@ -119,6 +118,7 @@ const VolumeControl = () => {
                 trackClassName="bg-white/30"
                 rangeClassName="bg-white"
                 thumbClassName="bg-white border-white/20"
+                heightClassName="h-[2px]"
                 className="w-[70px] transition-all duration-100 opacity-0 group-hover:opacity-100"
                 onValueChange={(value) => {
                     const [newVolume] = value
@@ -184,7 +184,7 @@ export function Player() {
                             {isPlaying ? <PauseIcon /> : <PlayIcon />}
                         </button>
                     </div>
-                    <span className="text-zinc-400 text-xs">{formatTime(currentTime)} / {formatTime(duration)}</span>
+                    <span className="text-zinc-400 text-xs">{formatTime(currentTime)} / {duration ? formatTime(duration) : '0:00'}</span>
                 </div>
                 <div>
                     <CurrentSong {...currentMusic.song} />
