@@ -2,16 +2,16 @@ import { useEffect, useRef, useState } from "react"
 import { userPlayerStore } from "../store/playerStore"
 import { Slider } from "./Slider"
 
-export const PlayIcon = () => (
+export const PlayIcon = ({fill}) => (
     <svg viewBox="0 0 24 24"
-        fill="white"
+        fill={fill}
         focusable="false"
     ><path d="M6,4l12,8L6,20V4z"></path></svg>
 )
 
-export const PauseIcon = () => (
+export const PauseIcon = ({fill}) => (
     <svg viewBox="0 0 24 24"
-        fill="white"
+        fill={fill}
         focusable="false"
     ><path d="M9,19H7V5H9ZM17,5H15V19h2Z"></path></svg>
 
@@ -181,7 +181,7 @@ export function Player() {
                 <div className="flex items-center place-content-center gap-4 ">
                     <div className="w-[40px] h-[40px]">
                         <button className="w-full h-full" onClick={handleClick}>
-                            {isPlaying ? <PauseIcon /> : <PlayIcon />}
+                            {isPlaying ? <PauseIcon fill={'white'} /> : <PlayIcon fill={'white'} />}
                         </button>
                     </div>
                     <span className="text-zinc-400 text-xs">{formatTime(currentTime)} / {duration ? formatTime(duration) : '0:00'}</span>

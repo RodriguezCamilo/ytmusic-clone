@@ -2,7 +2,7 @@ import { PlayIcon, PauseIcon } from "./Player.jsx"
 import { userPlayerStore } from "../store/playerStore.js"
 import { playlists, songs } from "../lib/data"
 
-export function CardPlayButton({ id }) {
+export function CardPlayButton({ id, fill }) {
     const {currentMusic, isPlaying, setIsPlaying, setCurrentMusic} = userPlayerStore(state => state)
     
     const isPlayingPlaylist = isPlaying && currentMusic?.playlist.id == id
@@ -27,8 +27,8 @@ export function CardPlayButton({ id }) {
  
 
     return (
-    <button onClick={handleClick} className="h-6 w-6 flex items-center">
-        {isPlayingPlaylist ? <PauseIcon/> : <PlayIcon/>}
+    <button onClick={handleClick} className="size-full flex items-center">
+        {isPlayingPlaylist ? <PauseIcon fill={fill}/> : <PlayIcon fill={fill}/>}
     </button>
     )
 }

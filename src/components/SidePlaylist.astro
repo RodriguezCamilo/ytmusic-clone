@@ -1,6 +1,6 @@
 ---
 import type {Playlist} from "../lib/data"
-import PlayIcon from "../icons/Playlist.astro"
+import { CardPlayButton } from "./CardPlayButton";
 
 interface Props {
     playlist?: Playlist;
@@ -12,16 +12,18 @@ const { id, title, artists } = playlist || { id: '', title: '', artists: [] };
 const artistsString = artists.join(", ")
 ---
 
-<li>
-    <a href={`/playlist/${id}`} class="group flex flex-row justify-between bg-[#030303]  hover:bg-zinc-800 rounded-md py-3 px-5">
+<li class="bg-[#030303]  hover:bg-zinc-800 rounded-md py-3 px-5 group flex flex-row justify-between ">
+    <a href={`/playlist/${id}`}>
         <div class="flex-col truncate">
             <h4 class="font-semibold text-sm">{title}</h4>
             <p class="text-xs text-zinc-200">{artistsString}</p>
         </div>
-        <div class="rounded-full self-center bg-white h-6 w-6 flex items-center place-content-center opacity-0 group-hover:opacity-100">
-            <div class="h-4 w-4 flex items-center">
-                <PlayIcon/>
+    </a>
+    <div class="rounded-full self-center bg-white h-6 w-6 flex items-center place-content-center opacity-0 group-hover:opacity-100">
+        <div class="h-4 w-4 flex items-center">
+            <div class="size-4">
+                <CardPlayButton fill={"black"} id={id} client:visible />
             </div>
         </div>
-    </a>
+    </div>
 </li>

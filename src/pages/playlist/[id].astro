@@ -1,5 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import MusicsTable from "../../components/MusicsTable.astro";
+import { CardPlayButton } from "../../components/CardPlayButton";
 import "@fontsource/roboto";
 import "@fontsource-variable/noto-sans";
 
@@ -13,38 +15,49 @@ const playlistSongs = songs.filter((song) => song.albumId == playlist?.albumId);
 ---
 
 <Layout title="YTMusic Clone">
-
     <div
-        class="relative bg-transparent flex flex-row h-full overflow-x-hidden items-center place-content-center text-center mx-24"
+        class="relative bg-transparent grid grid-cols-2 h-full overflow-x-hidden items-center place-content-center text-center mx-36"
         transition:name=`playlist ${id} box`
     >
-        <header class="flex flex-col flex-1 items-center gap-8">
+        <header class="flex flex-col w-full flex-1 items-center gap-4">
+            <span>{playlist?.artists.join(", ")}</span>
             <picture class="aspect-w-1 aspect-h-1">
                 <img
-                    class="rounded-sm object-cover w-56 h-56"
+                    class="rounded-sm object-cover size-60"
                     src={playlist?.cover}
                     alt={`Portada de ${playlist?.title}`}
                     transition:name=`playlist ${playlist?.id} image`
                 />
             </picture>
-            <div class="flex flex-col gap-2">
-                <h2 id="Noto" class="font-bold text-4xl" transition:name=`playlist ${id} title`>
+            <div class="flex mt-4 flex-col gap-2">
+                <h2
+                    id="Noto"
+                    class="font-bold text-4xl"
+                    transition:name=`playlist ${id} title`
+                >
                     {playlist?.title}
                 </h2>
-                <h4 class="text-zinc-300">Playlist • 2024</h4>
+                <div>
+                    <h4 class="text-zinc-300">Álbum • 2024</h4>
+                    <h4 class="text-zinc-300">
+                        {playlistSongs.length} canciones
+                    </h4>
+                </div>
             </div>
 
             <a>
                 <div
-                    class="h-16 w-16 flex items-center place-content-center bg-white rounded-full" transition:name=`playlist ${id} playicon` 
+                    class="size-16 flex items-center place-content-center bg-white rounded-full"
+                    transition:name=`playlist ${id} playicon`
                 >
-                    <div class="h-1/2 w-1/2 flex" >
-                        <PlayIcon />
-                    </div>
+                <div class="size-8">
+                    <CardPlayButton fill={"black"} id={id} client:visible />
+                </div>
+                    
                 </div>
             </a>
         </header>
-        <div class="flex flex-col flex-1"></div>
+        <MusicsTable songs={playlistSongs} />
     </div>
 </Layout>
 

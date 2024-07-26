@@ -22,7 +22,10 @@ const artistsString = artists.join(", ");
         class="rounded-full self-center absolute bg-black/50 h-10 w-10 flex items-center place-content-center opacity-0 group-hover:opacity-100 z-50 bottom-16 right-4"
         transition:name=`playlist ${id} playicon`
     >
-        <CardPlayButton id={id} client:visible />
+    <div class="size-6">
+        <CardPlayButton fill={'white'} id={id} client:visible />
+    </div>
+        
     </div>
     <a
         href={`/playlist/${id}`}
