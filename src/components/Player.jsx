@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from "react"
 import { userPlayerStore } from "../store/playerStore"
 import { Slider } from "./Slider"
+import { SongNextButton, SongPrevButton } from "./PrevNextSong"
 
-export const PlayIcon = ({fill}) => (
+export const PlayIcon = ({ fill }) => (
     <svg viewBox="0 0 24 24"
         fill={fill}
         focusable="false"
     ><path d="M6,4l12,8L6,20V4z"></path></svg>
 )
 
-export const PauseIcon = ({fill}) => (
+export const PauseIcon = ({ fill }) => (
     <svg viewBox="0 0 24 24"
         fill={fill}
         focusable="false"
@@ -32,6 +33,8 @@ export const VolumeIcon = () => (
 export const NoVolumeIcon = () => (
     <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path d="M3.15,3.85l4.17,4.17L6.16,9H3v6h3.16L12,19.93v-7.22l2.45,2.45c-0.15,0.07-0.3,0.13-0.45,0.18v1.04 c0.43-0.1,0.83-0.27,1.2-0.48l1.81,1.81c-0.88,0.62-1.9,1.04-3.01,1.2v1.01c1.39-0.17,2.66-0.71,3.73-1.49l2.42,2.42l0.71-0.71 l-17-17L3.15,3.85z M11,11.71v6.07L6.52,14H4v-4h2.52l1.5-1.27L11,11.71z M10.33,6.79L9.62,6.08L12,4.07v4.39l-1-1V6.22L10.33,6.79 z M14,8.66V7.62c2,0.46,3.5,2.24,3.5,4.38c0,0.58-0.13,1.13-0.33,1.64l-0.79-0.79c0.07-0.27,0.12-0.55,0.12-0.85 C16.5,10.42,15.44,9.1,14,8.66z M14,5.08V4.07c3.95,0.49,7,3.85,7,7.93c0,1.56-0.46,3.01-1.23,4.24l-0.73-0.73 C19.65,14.48,20,13.28,20,12C20,8.48,17.39,5.57,14,5.08z" ></path></svg>
 )
+
+
 
 const CurrentSong = ({ image, title, artists }) => {
     return (
@@ -74,20 +77,20 @@ const SongControl = ({ audio }) => {
     }
 
     return (
-            <Slider
-                defaultValue={[0]}
-                max={audio?.current?.duration ?? 0}
-                min={0}
-                value={[currentTime]}
-                trackClassName="bg-white/30"
-                rangeClassName="bg-[#f00000]"
-                thumbClassName="bg-[#f00000] border-[#f00000]/20"
-                heightClassName="h-[2px] hover:h-1"
-                className="w-full h-1"
-                onValueChange={(value) => {
-                    audio.current.currentTime = value
-                }}
-            />
+        <Slider
+            defaultValue={[0]}
+            max={audio?.current?.duration ?? 0}
+            min={0}
+            value={[currentTime]}
+            trackClassName="bg-white/15"
+            rangeClassName="bg-[#f00000]"
+            thumbClassName="bg-[#f00000] border-[#f00000]/20"
+            heightClassName="h-[2px] group:hover:h-1 hover:h-1"
+            className="w-full h-1"
+            onValueChange={(value) => {
+                audio.current.currentTime = value
+            }}
+        />
     )
 }
 
@@ -108,7 +111,7 @@ const VolumeControl = () => {
 
 
     return (
-        <div className="flex justify-center gap-x-2 group">
+        <div className="flex justify-center w-24 h-full gap-x-2 group">
 
             <Slider
                 defaultValue={[100]}
@@ -126,7 +129,7 @@ const VolumeControl = () => {
                     setVolume(volumeValue)
                 }}
             />
-            <button onClick={handleClickVolumen} className="size-6 fill-zinc-400">
+            <button onClick={handleClickVolumen} className="size-10 fill-zinc-400">
                 {volume > 0.01 ? <VolumeIcon /> : <NoVolumeIcon />}
             </button>
 
@@ -161,7 +164,7 @@ export function Player() {
         }
     }, [currentMusic])
 
-    const handleClick = () => {
+    const handleClickPlay = () => {
         setIsPlaying(!isPlaying)
     }
 
@@ -177,19 +180,27 @@ export function Player() {
     return (
         <div className="bg-zinc-800 h-full">
             <SongControl audio={audioRef} />
-            <div className="flex flex-row  px-4 z-50 h-full justify-between items-center bg-zinc-800">
+            <div className="flex flex-row  px-4 z-50 h-full justify-between items-center bg-neutral-800">
                 <div className="flex items-center place-content-center gap-4 ">
-                    <div className="w-[40px] h-[40px]">
-                        <button className="w-full h-full" onClick={handleClick}>
+
+                    <div className="size-5">
+                        <SongPrevButton />
+                    </div>
+                    <div className="size-10">
+                        <button className="w-full h-full" onClick={handleClickPlay}>
                             {isPlaying ? <PauseIcon fill={'white'} /> : <PlayIcon fill={'white'} />}
                         </button>
                     </div>
+                    <div className="size-5">
+                        <SongNextButton />
+                    </div>
+
                     <span className="text-zinc-400 text-xs">{formatTime(currentTime)} / {duration ? formatTime(duration) : '0:00'}</span>
                 </div>
                 <div>
                     <CurrentSong {...currentMusic.song} />
                 </div>
-                <div className="grid place-content-center">
+                <div className="grid h-full w-24 place-content-center">
                     <VolumeControl />
                 </div>
                 <audio ref={audioRef} />

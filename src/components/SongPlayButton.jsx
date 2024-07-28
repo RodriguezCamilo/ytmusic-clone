@@ -1,32 +1,32 @@
 import { PlayIcon, PauseIcon } from "./Player.jsx"
 import { userPlayerStore } from "../store/playerStore.js"
 
-export function CardPlayButton({ id, fill }) {
+export function SongPlayButton({ playlistid ,id, fill }) {
     const {currentMusic, isPlaying, setIsPlaying, setCurrentMusic} = userPlayerStore(state => state)
     
-    const isPlayingPlaylist = isPlaying && currentMusic?.playlist.id == id
+    const isPlayingSong = isPlaying && currentMusic?.song.id == id
     
     const handleClick = () => {
 
-        if (isPlayingPlaylist){
+        if (isPlayingSong){
             setIsPlaying(false)
             return
         }
 
-        fetch(`/api/get-info-playlist.json?id=${id}`)
+        fetch(`/api/get-info-playlist.json?id=${playlistid}`)
             .then(res=>res.json())
             .then(data=>{
                 const {songs, playlist} = data
                 setIsPlaying(true)
-                setCurrentMusic({songs, playlist, song: songs[0]})
-            }) 
+                setCurrentMusic({songs, playlist, song: songs[id - 1]})
+            })
     }
 
  
 
     return (
     <button onClick={handleClick} className="size-full flex items-center">
-        {isPlayingPlaylist ? <PauseIcon fill={fill}/> : <PlayIcon fill={fill}/>}
+        {isPlayingSong ? <PauseIcon fill={fill}/> : <PlayIcon fill={fill}/>}
     </button>
     )
 }

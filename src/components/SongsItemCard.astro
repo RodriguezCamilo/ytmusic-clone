@@ -1,0 +1,60 @@
+---
+import type { Song } from "../lib/data";
+import { SongPlayButton } from "./SongPlayButton.jsx";
+
+interface Props {
+    songs?: Song;
+}
+
+const { songs } = Astro.props;
+const { id, title, artists, albumId, image } = songs || {
+    id: "",
+    title: "",
+    artists: [],
+    albumId: "",
+    image: "",
+};
+
+const artistsString = artists.join(", ");
+---
+
+<article class="flex-1 group transition-all relative py-5 max-w-54 w-full">
+    <div
+        class="rounded-full self-center absolute bg-black/50 h-10 w-10 flex items-center place-content-center opacity-0 group-hover:opacity-100 z-50 bottom-16 right-4"
+        transition:name=`playlist ${albumId} playicon`
+    >
+        <div class="size-6">
+            <SongPlayButton
+                fill={"white"}
+                id={id}
+                playlistid={albumId}
+                client:visible
+            />
+        </div>
+    </div>
+    <a
+        href={`/playlist/${albumId}`}
+        class="justify-between overflow-hidden h-48 w-96 bg-[#030303]rounded-md block mb-3"
+        transition:name=`playlist ${albumId} box`
+    >
+        <picture class="group-hover:opacity-50 aspect-w-1 aspect-h-1">
+            <img
+                class="rounded-sm object-cover w-full h-full"
+                src={image}
+                alt={`Portada de ${title} por ${artistsString}`}
+                transition:name=`playlist ${albumId} image`
+            />
+        </picture>
+    </a>
+    <div class="flex-col truncate">
+        <a href={`/playlist/${albumId}`} class="hover:underline">
+            <h4
+                class="font-semibold text-md truncate"
+                transition:name=`playlist ${albumId} title`
+            >
+                {title}
+            </h4>
+        </a>
+        <p class="text-sm text-zinc-200 truncate">{artistsString}</p>
+    </div>
+</article>

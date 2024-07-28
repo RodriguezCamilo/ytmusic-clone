@@ -1,6 +1,6 @@
 ---
 import { type Song } from "../lib/data";
-import { CardPlayButton } from "./CardPlayButton";
+import { SongPlayButton } from "./SongPlayButton";
 
 interface Props {
     songs: Song[];
@@ -18,9 +18,10 @@ const { songs } = Astro.props;
                         {index + 1}
                     </span>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-50 ease-in-out size-6">
-                        <CardPlayButton
+                        <SongPlayButton
                             fill={"white"}
-                            id={index + 1}
+                            playlistid={song.albumId}
+                            id={song.id}
                             client:visible
                         />
                     </div>
