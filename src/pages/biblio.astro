@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { playlists } from "../lib/data";
+import PlayListItemCard from "../components/PlayListItemCard.astro";
+---
+
+<Layout title="YTMusic Clone">
+    <div class="bg-transparent flex flex-col gap-10 transition-all duration-300 relative mt-14 mx-6 md:mx-24 pb-6">
+        <div class="flex flex-col gap-3 mt-20">
+            <h2 id="Noto" class="font-bold text-2xl md:text-5xl">De tu biblioteca</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 flex-wrap flex-1 gap-6 mb-20">
+            {
+                playlists.map((playlist) => (
+                    <PlayListItemCard playlist={playlist} />
+                ))
+            }
+        </div>
+    </div>
+</Layout>

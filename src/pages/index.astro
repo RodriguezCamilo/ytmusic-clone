@@ -5,33 +5,32 @@ import { playlists, songs } from "../lib/data";
 import PlayListItemCard from "../components/PlayListItemCard.astro";
 import SongsItemCard from "../components/SongsItemCard.astro";
 
-// Función para mezclar un array de forma aleatoria
-const shuffleArray = (array) => {
-    let shuffled = array.slice(); // Crear una copia del array original
+const shuffleArray = (array:[]) => {
+    let shuffled = array.slice()
     for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    return shuffled;
-};
+    return shuffled
+}
 
 const shuffledSongs = shuffleArray(songs);
 ---
 
 <Layout title="YTMusic Clone">
 
-    <div id="scroll" class="bg-transparent flex flex-col gap-10 transition-all duration-300 relative mx-24 pb-6">
-        <ul class="flex flex-row gap-4 mt-14">
+    <div  class="bg-transparent flex flex-col gap-10 transition-all duration-300 relative mx-6 md:mx-24 pb-6 overflow-x-hidden">
+        <ul class="flex flex-row overflow-x-auto py-2 gap-4 mt-14">
             <MainButtonItem href="/">Romance</MainButtonItem>
             <MainButtonItem>Fiesta</MainButtonItem>
             <MainButtonItem>Triste</MainButtonItem>
             <MainButtonItem>Estudio</MainButtonItem>
         </ul>
         <div class="flex flex-col gap-3">
-            <h2 class="text-zinc-400">
+            <h2 class="text-zinc-400 text-sm">
                 INICIA LA RADIO A PARTIR DE UNA CANCIÓN
             </h2>
-            <h2 id="Noto" class="font-bold text-5xl">Selección rápida</h2>
+            <h2 id="Noto" class="font-bold text-2xl md:text-5xl">Selección rápida</h2>
         </div>
         <div  class="flex flex-row overflow-x-scroll gap-6">
             {
@@ -41,7 +40,7 @@ const shuffledSongs = shuffleArray(songs);
             }
         </div>
         <div class="flex flex-col gap-3 mt-20">
-            <h2 id="Noto" class="font-bold text-5xl">De tu biblioteca</h2>
+            <h2 id="Noto" class="font-bold text-2xl md:text-5xl">De tu biblioteca</h2>
         </div>
         <div class="flex flex-row flex-wrap flex-1 gap-6 mb-20">
             {
@@ -53,8 +52,3 @@ const shuffledSongs = shuffleArray(songs);
     </div>
 </Layout>
 
-<style>
-    #scroll{
-        scrollbar-color: #363636 transparent;
-    }
-</style>

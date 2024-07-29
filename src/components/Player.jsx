@@ -43,14 +43,14 @@ const CurrentSong = ({ image, title, artists }) => {
                 <img src={image} alt={title} />
             </picture>
             <div className="flex flex-col">
-                <h3 className="block  font-semibold">
+                <h3 className="block font-semibold text-sm">
                     {title}
                 </h3>
-                <span className="block text-zinc-400">
+                <span className="block text-zinc-400 text-sm">
                     {artists?.join(', ')}
                 </span>
             </div>
-            <div className="flex flex-row h-6 gap-4">
+            <div className="flex-row h-6 gap-4 hidden md:flex">
                 {
                     title && <> <DislikeIcon />
                         <LikeIcon /></>
@@ -122,7 +122,7 @@ const VolumeControl = () => {
                 rangeClassName="bg-white"
                 thumbClassName="bg-white border-white/20"
                 heightClassName="h-[2px]"
-                className="w-[70px] transition-all duration-100 opacity-0 group-hover:opacity-100"
+                className="w-[70px] transition-all duration-100 opacity-100 md:opacity-0 group-hover:opacity-100"
                 onValueChange={(value) => {
                     const [newVolume] = value
                     const volumeValue = newVolume / 100
@@ -165,7 +165,10 @@ export function Player() {
     }, [currentMusic])
 
     const handleClickPlay = () => {
-        setIsPlaying(!isPlaying)
+        if(currentMusic?.song != null) {
+            setIsPlaying(!isPlaying)
+        }
+        
     }
 
 
@@ -180,10 +183,10 @@ export function Player() {
     return (
         <div className="bg-zinc-800 h-full">
             <SongControl audio={audioRef} />
-            <div className="flex flex-row  px-4 z-50 h-full justify-between items-center bg-neutral-800">
+            <div className="flex flex-row-reverse md:flex-row  px-4 z-50 h-full justify-between items-center bg-neutral-800">
                 <div className="flex items-center place-content-center gap-4 ">
 
-                    <div className="size-5">
+                    <div className="size-5 hidden md:block">
                         <SongPrevButton />
                     </div>
                     <div className="size-10">
@@ -195,12 +198,12 @@ export function Player() {
                         <SongNextButton />
                     </div>
 
-                    <span className="text-zinc-400 text-xs">{formatTime(currentTime)} / {duration ? formatTime(duration) : '0:00'}</span>
+                    <span className="text-zinc-400 text-xs hidden md:block">{formatTime(currentTime)} / {duration ? formatTime(duration) : '0:00'}</span>
                 </div>
                 <div>
                     <CurrentSong {...currentMusic.song} />
                 </div>
-                <div className="grid h-full w-24 place-content-center">
+                <div className="md:grid h-full w-24 place-content-center hidden">
                     <VolumeControl />
                 </div>
                 <audio ref={audioRef} />

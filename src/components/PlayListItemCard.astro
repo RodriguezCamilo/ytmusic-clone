@@ -17,9 +17,9 @@ const { id, title, artists, cover } = playlist || {
 const artistsString = artists.join(", ");
 ---
 
-<article class="w-52 group transition-all relative">
+<article class="w-28 md:w-52 group transition-all relative">
     <div
-        class="rounded-full self-center absolute bg-black/50 h-10 w-10 flex items-center place-content-center opacity-0 group-hover:opacity-100 z-50 bottom-16 right-4"
+        class="rounded-full self-center absolute bg-black/50 size-10 flex items-center place-content-center opacity-0 group-hover:opacity-100 z-50 bottom-16 right-4"
         transition:name=`playlist ${id} playicon`
     >
     <div class="size-6">
