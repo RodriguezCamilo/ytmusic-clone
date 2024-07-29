@@ -15,7 +15,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es" class=" h-screen overflow-hidden">
+<html lang="es" class=" h-fulloverflow-hidden">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
@@ -23,10 +23,11 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
 		<title>{title}</title>
 		<ViewTransitions fallback="none" />
 	</head>
-	<body id="scroll" class="text-white overflow-hidden h-screen">
+	<body id="scroll" class="text-white overflow-hidden h-full">
 		<div
 			class="bg-local bg-cover bg-center bg-no-repeat absolute w-full h-[450px]"
 			style="background-image: url(/bg.jpg);"
@@ -34,7 +35,7 @@ const { title } = Astro.props;
 			<div class="w-full h-full bg-gradient-to-b from-black/50 to-black">
 			</div>
 		</div>
-		<div id="app" class="relative h-[90vh] md:h-screen w-full ">
+		<div id="app" class="relative h-screen w-full ">
 			<div class="[grid-area:nav] min-h-12">
 				<NavBar />
 			</div>
