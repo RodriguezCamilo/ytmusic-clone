@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { userPlayerStore } from "../store/playerStore"
 import { Slider } from "./Slider"
 import { SongNextButton, SongPrevButton } from "./PrevNextSong"
@@ -156,7 +156,7 @@ export function Player() {
     }, [isPlaying])
 
     useEffect(() => {
-        const { song, playlist, songs } = currentMusic
+        const { song, playlist} = currentMusic
         if (song) {
             const src = `/music/${playlist.id}/0${song.id}.mp3`
             audioRef.current.src = src

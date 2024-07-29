@@ -5,15 +5,14 @@ import { playlists, songs } from "../lib/data";
 import PlayListItemCard from "../components/PlayListItemCard.astro";
 import SongsItemCard from "../components/SongsItemCard.astro";
 
-const shuffleArray = (array:[]) => {
-    let shuffled = array.slice()
+const shuffleArray = (array: any[]): any[] => {
+    let shuffled = array.slice();
     for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
     }
     return shuffled
 }
-
 const shuffledSongs = shuffleArray(songs);
 ---
 
