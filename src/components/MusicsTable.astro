@@ -14,10 +14,10 @@ const { songs } = Astro.props;
         songs.map((song, index) => (
             <div class="hover:bg-white/10 rounded-md py-6 px-8 flex flex-row justify-between group">
                 <div class="flex flex-row gap-10 items-center relative">
-                    <span class="text-zinc-300 group-hover:opacity-0 block transition-opacity duration-50 ease-in-out">
+                    <span class="text-zinc-300 group-hover:opacity-0 opacity-0 md:opacity-100 block transition-opacity duration-50 ease-in-out">
                         {index + 1}
                     </span>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-50 ease-in-out size-6">
+                    <div class="absolute inset-0 flex items-center justify-center opaciyt-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-50 ease-in-out size-6">
                         <SongPlayButton
                             fill={"white"}
                             playlistid={song.albumId}
